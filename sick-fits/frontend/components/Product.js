@@ -1,13 +1,12 @@
-import PropTypes from 'prop-types';
-import Link from 'next/link';
+import PropTypes from 'prop-types'
+import Link from 'next/link'
 
-import ItemStyles from './styles/ItemStyles';
-import Title from './styles/Title';
-import PriceTag from './styles/PriceTag';
-import formatMoney from '../lib/formatMoney';
+import ItemStyles from './styles/ItemStyles'
+import Title from './styles/Title'
+import PriceTag from './styles/PriceTag'
+import formatMoney from '../lib/formatMoney'
 
 export default function Product({ product }) {
-  console.log(product?.photo?.image?.publicUrlTransformed);
   return (
     <ItemStyles>
       <img
@@ -20,7 +19,7 @@ export default function Product({ product }) {
       <PriceTag>{formatMoney(product.price)}</PriceTag>
       <p>{product.description}</p>
     </ItemStyles>
-  );
+  )
 }
 
 Product.propTypes = {
@@ -35,4 +34,4 @@ Product.propTypes = {
       }),
     }),
   }),
-};
+}

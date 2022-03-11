@@ -1,9 +1,9 @@
-import { useQuery } from '@apollo/client';
-import gql from 'graphql-tag';
-import styled from 'styled-components';
-import Product from './Product';
+import { useQuery } from '@apollo/client'
+import gql from 'graphql-tag'
+import styled from 'styled-components'
+import Product from './Product'
 
-const ALL_PRODUCTS_QUERY = gql`
+export const ALL_PRODUCTS_QUERY = gql`
   query ALL_PRODUCTS_QUERY {
     allProducts {
       id
@@ -18,18 +18,18 @@ const ALL_PRODUCTS_QUERY = gql`
       }
     }
   }
-`;
+`
 
 const ProductListStyles = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 60px;
-`;
+`
 
 export default function Products() {
-  const { data, error, loading } = useQuery(ALL_PRODUCTS_QUERY);
-  if (loading) return <div>loading...</div>;
-  if (error) return <p>Error: {error.message}</p>;
+  const { data, error, loading } = useQuery(ALL_PRODUCTS_QUERY)
+  if (loading) return <div>loading...</div>
+  if (error) return <p>Error: {error.message}</p>
   return (
     <div>
       <ProductListStyles>
@@ -38,5 +38,5 @@ export default function Products() {
         ))}
       </ProductListStyles>
     </div>
-  );
+  )
 }
