@@ -56,7 +56,7 @@ export default function UpdateProduct({ id }) {
     <Form
       onSubmit={async (e) => {
         e.preventDefault()
-        // console.log(inputs)
+
         const res = await updateProduct({
           variables: {
             id: inputs.id,
@@ -65,15 +65,7 @@ export default function UpdateProduct({ id }) {
             price: inputs.price,
           },
         })
-        // // submit the inputfields to the backend
-        // const res = await createProduct({
-        //   variables: inputs,
-        // })
-        // clearForm()
-        // // go to that product's page
-        // Router.push({
-        //   pathname: `/product/${res.data.createProduct.id}`,
-        // })
+        console.log(res)
       }}
     >
       <DisplayError error={error || updateError} />
