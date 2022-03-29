@@ -7,6 +7,7 @@ import Supreme from './styles/Supreme'
 import { useUser } from './User'
 import { useCart } from '../lib/cartState'
 import CloseButton from './styles/CloseButton'
+import RemoveFromCart from './RemoveFromCart'
 
 const CartItemStyles = styled.li`
   padding: 1rem 0;
@@ -43,12 +44,14 @@ function CartItem({ cartItem }) {
           </em>
         </p>
       </div>
+      <RemoveFromCart id={cartItem.id} />
     </CartItemStyles>
   )
 }
 
 CartItem.propTypes = {
   cartItem: PropTypes.shape({
+    id: PropTypes.string,
     quantity: PropTypes.number,
     product: PropTypes.shape({
       name: PropTypes.string,
