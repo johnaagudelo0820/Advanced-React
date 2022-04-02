@@ -9,3 +9,4 @@ variables.env
 *.env
 .keystone
 *.db
+sick-fits/frontend/.env.local
