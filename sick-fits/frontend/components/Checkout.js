@@ -1,5 +1,12 @@
-import { CardElement, Elements } from '@stripe/react-stripe-js'
+import {
+  CardElement,
+  Elements,
+  useElements,
+  useStripe,
+} from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
+import nProgress from 'nprogress'
+import { useState } from 'react'
 import styled from 'styled-components'
 
 import SickButton from './styles/SickButton'
@@ -14,17 +21,49 @@ const CheckoutFormStyles = styled.form`
 `
 const stripeLib = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY)
 
-export default function Checkout() {
-  const handlerSubmit = (e) => {
+function CheckoutForm() {
+  const [error, setError] = useState()
+  const [loading, setLoading] = useState(true)
+  const stripe = useStripe()
+  const elements = useElements()
+
+  const handlerSubmit = async (e) => {
+    // 1. Stop the form from submitting and turn the loader one
     e.preventDefault()
+    setLoading(true)
     console.log('We gotta do some work..')
+    // 2. Start the page transaction
+    nProgress.start()
+    // 3. Create the payment method via stripe  (Token comes back here if successful)
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: 'card',
+      card: elements.getElement(CardElement),
+    })
+    console.log(paymentMethod, error)
+    // 4. Handler any errors from stripe
+    if (error) {
+      setError(error)
+    }
+    // 5. Send the token from step 3 to our keystone server, via a custom mutation
+    // 6. Change the page to view the order
+    // 7. close the cart
+    // 8. turn the loader off
+    setLoading(false)
+    nProgress.done()
   }
   return (
+    <CheckoutFormStyles onSubmit={handlerSubmit}>
+      {error && <p style={{ fontSize: 20 }}>{error.message}</p>}
+      <CardElement />
+      <SickButton>Check Out Now</SickButton>
+    </CheckoutFormStyles>
+  )
+}
+
+export default function Checkout() {
+  return (
     <Elements stripe={stripeLib}>
-      <CheckoutFormStyles onSubmit={handlerSubmit}>
-        <CardElement />
-        <SickButton>Check Out Now</SickButton>
-      </CheckoutFormStyles>
+      <CheckoutForm />
     </Elements>
   )
 }
