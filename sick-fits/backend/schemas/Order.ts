@@ -5,9 +5,9 @@ import formatMoney from '../lib/formatMoney';
 export const Order = list({
   fields: {
     label: virtual({
-      graphQLReturnType: 'string',
+      graphQLReturnType: 'String',
       resolver(item) {
-        return `John is cool ${formatMoney(item?.total)}}]`;
+        return `John is cool ${formatMoney(item.total)}}]`;
       },
     }),
     total: integer(),
