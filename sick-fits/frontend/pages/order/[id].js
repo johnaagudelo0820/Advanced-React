@@ -22,7 +22,7 @@ const SINGLE_ORDER_QUERY = gql`
         quantity
         photo {
           image {
-            publicUrlTranformed
+            publicUrlTransformed
           }
         }
       }
@@ -41,7 +41,6 @@ export default function singleOrderPage({ query }) {
   const { order } = data
   return (
     <OrderStyles>
-      key {order.price} {order.charge}
       <Head>
         <title>Sick Fits - {order.id}</title>
       </Head>
@@ -64,7 +63,7 @@ export default function singleOrderPage({ query }) {
       <div className="items">
         {order.items.map((item) => (
           <div className="order-item" key="item.id">
-            <img src={item.photo.image.publicUrlTranformed} alt={item.title} />
+            <img src={item.photo.image.publicUrlTransformed} alt={item.title} />
             <h2>{item.name}</h2>
             <p>Qty: {item.quantity}</p>
             <p>Each: {formatMoney(item.price)}</p>
