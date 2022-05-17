@@ -2,15 +2,15 @@ export default function formatMoney(amount = 0) {
   const options = {
     style: 'currency',
     currency: 'USD',
-    minimunFractionDigits: 2,
-  };
+    minimumFractionDigits: 2,
+  }
 
   // check if its a clean dollar amount
   if (amount % 100 === 0) {
-    options.minimunFractionDigits = 0;
+    options.minimumFractionDigits = 0
   }
 
-  const formatter = Intl.NumberFormat('en-US', options);
+  const formatter = new Intl.NumberFormat('en-US', options)
 
-  return formatter.format(amount / 1000);
+  return formatter.format(amount / 100)
 }
