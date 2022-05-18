@@ -35,7 +35,7 @@ Product.propTypes = {
   product: PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.string,
-    price: PropTypes.string,
+    price: PropTypes.number,
     description: PropTypes.string,
     photo: PropTypes.shape({
       image: PropTypes.shape({
